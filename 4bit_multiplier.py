@@ -40,3 +40,21 @@ csp.add_constraint(gates.fulladder_gate(['fa4', 'and12', 'a', 'P3', 'carry9']))
 csp.add_constraint(gates.fulladder_gate(['fa5', 'and13', 'carry9', 'P4', 'carry10']))
 csp.add_constraint(gates.fulladder_gate(['fa6', 'and14', 'carry10', 'P5', 'carry11']))
 csp.add_constraint(gates.fulladder_gate(['carry4', 'and15', 'carry11', 'P6', 'P7']))
+
+#set outputs to binary of number you want to factorise
+csp.fix_variable('P0', 1)
+csp.fix_variable('P1', 1)
+csp.fix_variable('P2', 1)
+csp.fix_variable('P3', 1)
+csp.fix_variable('P4', 0)
+csp.fix_variable('P5', 0)
+csp.fix_variable('P6', 0)
+csp.fix_variable('P7', 1)
+
+bqm = dwavebinarycsp.stitch(csp)
+
+sampler = EmbeddingComposite(DWaveSampler())
+response = sampler.sample(bqm, num_reads = 1000, label = '4 bit multiplier')
+
+print(response)
+dwave.inspector.show(response)
