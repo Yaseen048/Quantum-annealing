@@ -54,7 +54,8 @@ csp.fix_variable('P7', 1)
 bqm = dwavebinarycsp.stitch(csp)
 
 sampler = EmbeddingComposite(DWaveSampler())
-response = sampler.sample(bqm, num_reads = 1000, label = '4 bit multiplier')
+response = sampler.sample(bqm, num_reads = 1000, annealing_time = 50, label = '4 bit multiplier')
 
-print(response)
+df = response.to_pandas_dataframe()
+print(df.head())
 dwave.inspector.show(response)
