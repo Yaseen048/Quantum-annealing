@@ -45,7 +45,7 @@ csp.fix_variable('a', 1)
 bqm = dwavebinarycsp.stitch(csp)
 
 sampler = EmbeddingComposite(DWaveSampler())
-response = sampler.sample(bqm, num_reads = 1000, label = '3 bit multiplier')
+response = sampler.sample(bqm, num_reads = 1000, annealing_time = 50, label = '3 bit multiplier')
 
 print(response)
 dwave.inspector.show(response)
