@@ -57,5 +57,9 @@ sampler = EmbeddingComposite(DWaveSampler())
 response = sampler.sample(bqm, num_reads = 1000, annealing_time = 50, label = '4 bit multiplier')
 
 df = response.to_pandas_dataframe()
-print(df.head())
+
+df1 = df.loc[((df['A2'] == 0) & (df['A1'] == 1) & (df['B2'] == 1) & (df['B1'] == 0)) | ((df['A2'] == 1) & (df['A1'] == 0) & (df['B2'] == 0) & (df['B1'] == 1))]
+
+
+print(df1)
 dwave.inspector.show(response)
